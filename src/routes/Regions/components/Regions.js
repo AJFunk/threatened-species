@@ -6,11 +6,6 @@ class Regions extends Component {
 
   static propTypes = {
     regions   : PropTypes.object.isRequired,
-    fetchRegions : PropTypes.func.isRequired
-  }
-
-  componentWillMount() {
-    if(!this.props.regions.loaded) this.props.fetchRegions();
   }
 
   render() {

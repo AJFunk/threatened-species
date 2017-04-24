@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import {
-  fetchCountries,
   fetchCountry
 } from '../modules/countries'
 
@@ -16,7 +15,6 @@ import Countries from '../components/Countries'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  fetchCountries,
   fetchCountry
 }
 

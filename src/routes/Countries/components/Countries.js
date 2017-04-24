@@ -5,8 +5,7 @@ import Loading from '../../../components/Loading'
 class Countries extends Component {
 
   static propTypes = {
-    countries: PropTypes.object.isRequired,
-    fetchCountries: PropTypes.func.isRequired
+    countries: PropTypes.object.isRequired
   }
 
   constructor() {
@@ -16,10 +15,6 @@ class Countries extends Component {
     }
     this.fetchAndShowCountry = this.fetchAndShowCountry.bind(this)
     this.backToCountries = this.backToCountries.bind(this)
-  }
-
-  componentDidMount() {
-    if(!this.props.countries.loaded) this.props.fetchCountries()
   }
 
   fetchAndShowCountry(name, isocode) {

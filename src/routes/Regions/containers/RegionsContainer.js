@@ -13,4 +13,4 @@ const mapStateToProps = (state) => ({
   regions: state.regions
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Regions)
+export default connect(mapStateToProps)(Regions)
