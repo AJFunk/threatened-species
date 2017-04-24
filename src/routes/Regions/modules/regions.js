@@ -12,21 +12,14 @@ export const REGIONS_FETCH_FAILURE = 'REGIONS_FETCH_FAILURE'
 export const fetchRegions = () => {
   return (dispatch, getState) => {
     dispatch({ type: REGIONS_LOADING })
-    return new Promise((resolve, reject) => {
-      return axios
-        .get('/api/Region/all')
-        .then(res => {
-          dispatch({
-            type    : REGIONS_FETCH,
-            payload : res.data.results
-          })
-          resolve()
+    return axios.get('/api/Region/all')
+      .then(res => {
+        dispatch({
+          type    : REGIONS_FETCH,
+          payload : res.data.results
         })
-        .catch(err => {
-          dispatch({ type: REGIONS_FETCH_FAILURE })
-          return reject(err)
-        });
-    })
+      })
+      .catch(err => dispatch({ type: REGIONS_FETCH_FAILURE }));
   }
 }
 

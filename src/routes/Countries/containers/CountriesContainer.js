@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import {
-  fetchCountries
+  fetchCountries,
+  fetchCountry
 } from '../modules/countries'
 
 /*  This is a container component. Notice it does not contain any JSX,
@@ -15,7 +16,8 @@ import Countries from '../components/Countries'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  fetchCountries
+  fetchCountries,
+  fetchCountry
 }
 
 const mapStateToProps = (state) => ({

@@ -14,6 +14,7 @@ class Countries extends Component {
 
   render() {
     const { loading, countries} = this.props.countries
+
     if(loading) {
       return (
         <div>
@@ -24,7 +25,7 @@ class Countries extends Component {
     return (
       <div>
         <h3>Countries</h3>
-        {countries.map((e,i) => <div key={i}>{e.country}</div>)}
+        {countries.map((e,i) => <div key={i} onClick={this.props.fetchCountry.bind(this, e.country, e.isocode)}>{e.country}</div>)}
       </div>
     )
   }
