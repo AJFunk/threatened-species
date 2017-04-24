@@ -4,19 +4,27 @@ import PropTypes from 'prop-types'
 class Countries extends Component {
 
   static propTypes = {
-    countries   : PropTypes.array.isRequired,
-    fetchCountries : PropTypes.func.isRequired
+    countries: PropTypes.object.isRequired,
+    fetchCountries: PropTypes.func.isRequired
   }
 
-  componentWillMount() {
-    if(!this.props.countries.length) this.props.fetchCountries();
+  componentDidMount() {
+    if(!this.props.countries.loaded) this.props.fetchCountries();
   }
 
   render() {
+    const { loading, countries} = this.props.countries
+    if(loading) {
+      return (
+        <div>
+          <h1>LOADING</h1>
+        </div>
+      )
+    }
     return (
       <div>
         <h3>Countries</h3>
-        {this.props.countries.map((e,i) => <div key={i}>{e.country}</div>)}
+        {countries.map((e,i) => <div key={i}>{e.country}</div>)}
       </div>
     )
   }
