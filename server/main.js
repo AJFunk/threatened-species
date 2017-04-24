@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
-
+const RedList = require('iucn-red-list');
 const app = express()
 
 // Apply gzip compression
@@ -36,6 +36,16 @@ if (project.env === 'development') {
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
   app.use(express.static(project.paths.public()))
+
+  app.get('/api/:module/:method', function(req, res, next) {
+    console.log("HELLO");
+    console.log("MOD", req.params.module);
+    console.log("METHOD", req.params.method);
+    console.log("OPTION", req.query);
+    return RedList[req.params.module][req.params.method](req.query)
+      .then(d => res.status(200).json(d))
+      .catch(e => console.log("Err", e));
+  });
 
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
