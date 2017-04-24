@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Loading from '../../../components/Loading'
 
 class Regions extends Component {
 
@@ -14,13 +15,7 @@ class Regions extends Component {
 
   render() {
     const { loading, regions } = this.props.regions
-    if(loading) {
-      return (
-        <div>
-          <h1>LOADING</h1>
-        </div>
-      )
-    }
+    if(loading) return <Loading />
     return (
       <div>
         <h3>Regions</h3>

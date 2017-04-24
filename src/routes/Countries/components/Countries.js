@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Loading from '../../../components/Loading'
 
 class Countries extends Component {
 
@@ -14,7 +15,6 @@ class Countries extends Component {
       showCountry: false
     }
     this.fetchAndShowCountry = this.fetchAndShowCountry.bind(this)
-    this.renderLoading = this.renderLoading.bind(this)
     this.backToCountries = this.backToCountries.bind(this)
   }
 
@@ -31,17 +31,9 @@ class Countries extends Component {
     this.setState({ showCountry: false })
   }
 
-  renderLoading() {
-    return (
-      <div>
-        <h1>LOADING</h1>
-      </div>
-    )
-  }
-
   renderCountry() {
     const { country } = this.props.countries
-    if(country.loading) return this.renderLoading()
+    if(country.loading) return <Loading />
     return (
       <div>
         <button className='btn btn-default' onClick={this.backToCountries}>Back to Countries</button>
@@ -54,7 +46,7 @@ class Countries extends Component {
   render() {
     const { loading, countries} = this.props.countries
 
-    if(loading) return this.renderLoading()
+    if(loading) return <Loading />
     if(this.state.showCountry) return this.renderCountry()
 
     return (
