@@ -2,6 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
 import CountriesRoute from './Countries'
+import CountryRoute from './Countries/routes/country'
 import RegionsRoute from './Regions'
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -13,6 +14,7 @@ export const createRoutes = (store) => ({
   indexRoute  : Home,
   childRoutes : [
     CountriesRoute(store),
+    CountryRoute(store),
     RegionsRoute(store)
   ]
 })

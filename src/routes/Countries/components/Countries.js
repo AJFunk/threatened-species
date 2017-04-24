@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 import Loading from '../../../components/Loading'
 import Country from './Country'
 
@@ -11,32 +12,20 @@ class Countries extends Component {
 
   constructor() {
     super()
-    this.state = {
-      showCountry: false
-    }
-    this.fetchAndShowCountry = this.fetchAndShowCountry.bind(this)
-    this.backToCountries = this.backToCountries.bind(this)
-  }
-
-  fetchAndShowCountry(name, isocode) {
-    this.props.fetchCountry(name, isocode)
-    this.setState({ showCountry: true })
-  }
-
-  backToCountries() {
-    this.setState({ showCountry: false })
   }
 
   render() {
     const { loading, countries, country} = this.props.countries
 
     if(loading) return <Loading />
-    if(this.state.showCountry) return <Country country={country} backToCountries={this.backToCountries} />
-
     return (
       <div>
         <h3>Countries</h3>
-        {countries.map((e,i) => <div key={i} onClick={this.fetchAndShowCountry.bind(this, e.country, e.isocode)}>{e.country}</div>)}
+        {countries.map((e,i) =>
+          <div key={i}>
+            <Link to={`/countries/${e.isocode}`}>{e.country}</Link>
+          </div>
+        )}
       </div>
     )
   }
