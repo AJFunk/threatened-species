@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loading from '../../../components/Loading'
+import Country from './Country'
 
 class Countries extends Component {
 
@@ -26,23 +27,11 @@ class Countries extends Component {
     this.setState({ showCountry: false })
   }
 
-  renderCountry() {
-    const { country } = this.props.countries
-    if(country.loading) return <Loading />
-    return (
-      <div>
-        <button className='btn btn-default' onClick={this.backToCountries}>Back to Countries</button>
-        <h1>{country.name}</h1>
-        {country.species.map((e,i) => <div key={i}>{e.scientific_name} ({e.category}) - #{e.taxonid}</div>)}
-      </div>
-    )
-  }
-
   render() {
-    const { loading, countries} = this.props.countries
+    const { loading, countries, country} = this.props.countries
 
     if(loading) return <Loading />
-    if(this.state.showCountry) return this.renderCountry()
+    if(this.state.showCountry) return <Country country={country} backToCountries={this.backToCountries} />
 
     return (
       <div>
