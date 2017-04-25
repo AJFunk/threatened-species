@@ -13,25 +13,15 @@ class Country extends Component {
 
   constructor() {
     super()
-    this.state = {
-      name: ''
-    }
   }
 
   componentDidMount() {
     const { fetchCountry, countries } = this.props;
     fetchCountry(name, this.props.params.isocode)
-    for (let i = 0; i < countries.length; i++) {
-      if(countries[i].isocode === this.props.params.isocode) {
-        this.setState({ name: countries[i].country })
-        break;
-      }
-    }
   }
 
   render() {
-    const { country, loading } = this.props
-    const { name } = this.state
+    const { country, loading, name } = this.props
 
     if(country.loading) return <Loading />
     return (
@@ -39,7 +29,7 @@ class Country extends Component {
         <Link to='/countries'>
           <button className='btn btn-default'>Back to Countries</button>
         </Link>
-        <h1>{name}</h1>
+        <h1>{country.name}</h1>
         {country.species.map((e,i) => <div key={i}>{e.scientific_name} ({e.category}) - #{e.taxonid}</div>)}
       </div>
     )

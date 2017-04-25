@@ -49,7 +49,20 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTRIES_FETCH]: (state, action) => Object.assign({}, state, {countries: action.payload, loading: false, loaded: true}),
+  [COUNTRIES_FETCH]: (state, action) =>
+    Object.assign(
+      {},
+      state,
+      {
+        countries: action.payload.sort((a,b) => {
+          if(a.country < b.country) return -1
+          if(a.country > b.country) return 1
+          return 0
+        }),
+        loading: false,
+        loaded: true
+      }
+    ),
   [COUNTRIES_FETCH_FAILURE]: (state, action) => Object.assign({}, state, {loading: false, loaded: false}),
   [COUNTRIES_LOADING]: (state, action) => Object.assign({}, state, {loading: true, loaded: false}),
   [COUNTRY_LOADING]: (state, action) =>
@@ -63,14 +76,20 @@ const ACTION_HANDLERS = {
           {
             loading: true,
             loaded: false,
-            isocode: action.payload.isocode,
-            name: action.payload.name
+            isocode: action.payload.isocode
           }
         )
       }
     ),
-  [COUNTRY_FETCH]: (state, action) =>
-    Object.assign(
+  [COUNTRY_FETCH]: (state, action) => {
+    let name = ''
+    for (let i = 0; i < state.countries.length; i++) {
+      if(state.countries[i].isocode === state.country.isocode) {
+        name = state.countries[i].country
+        break;
+      }
+    }
+    return Object.assign(
       {},
       state,
       {
@@ -80,11 +99,13 @@ const ACTION_HANDLERS = {
           {
             loading: false,
             loaded: true,
-            species: action.payload
+            species: action.payload,
+            name
           }
         )
       }
-    ),
+    )
+  },
   [COUNTRY_FETCH_FAILURE]: (state, action) => Object.assign({}, state, {loading: false, loaded: false})
 }
 

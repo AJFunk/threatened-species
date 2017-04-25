@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
 import Loading from '../../../components/Loading'
 import Country from './Country'
+import CountryCard from './CountryCard'
 
 class Countries extends Component {
 
@@ -12,19 +12,29 @@ class Countries extends Component {
 
   constructor() {
     super()
+    this.state = {
+      search: ''
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      search: e.target.value
+    })
   }
 
   render() {
-    const { loading, countries, country} = this.props.countries
+    const { loading, country } = this.props.countries
+    const filteredCountries = this.props.countries.countries.filter(c => c.country.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1)
 
     if(loading) return <Loading />
     return (
       <div>
         <h3>Countries</h3>
-        {countries.map((e,i) =>
-          <div key={i}>
-            <Link to={`/countries/${e.isocode}`}>{e.country}</Link>
-          </div>
+        <input value={this.state.search} onChange={this.handleChange} placeholder='Search...'/>
+        {filteredCountries.map((e,i) =>
+          <CountryCard key={i} country={e}/>
         )}
       </div>
     )
