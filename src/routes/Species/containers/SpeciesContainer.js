@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { actions } from '../modules/species'
+import actions from '../modules/actions'
 
 import Species from '../components/Species'
 
