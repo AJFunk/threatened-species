@@ -30,7 +30,7 @@ class Country extends Component {
           <button className='btn btn-default'>Back to Countries</button>
         </Link>
         <h1>{country.name}</h1>
-        {country.species.map((e,i) => <div key={i}>{e.scientific_name} ({e.category}) - #{e.taxonid}</div>)}
+        {country.species.map((e,i) => <Link to={`/species/${e.taxonid}`} key={i}>{e.scientific_name} ({e.category}) - #{e.taxonid}</Link>)}
       </div>
     )
   }

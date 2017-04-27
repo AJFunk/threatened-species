@@ -4,6 +4,7 @@ import Home from './Home'
 import CountriesRoute from './Countries'
 import CountryRoute from './Countries/routes/country'
 import RegionsRoute from './Regions'
+import SpeciesRoute from './Species'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -15,7 +16,8 @@ export const createRoutes = (store) => ({
   childRoutes : [
     CountriesRoute(store),
     CountryRoute(store),
-    RegionsRoute(store)
+    RegionsRoute(store),
+    SpeciesRoute(store)
   ]
 })
 

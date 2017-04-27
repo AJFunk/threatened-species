@@ -43,8 +43,11 @@ if (project.env === 'development') {
     console.log("METHOD", req.params.method);
     console.log("OPTION", req.query);
     return RedList[req.params.module][req.params.method](req.query)
-      .then(d => res.status(200).json(d))
-      .catch(e => console.log("Err", e));
+      .then(d => {
+        if(d.message === 'Token not valid!') return res.status(403).send(d.message)
+        return res.status(200).json(d)
+      })
+      .catch(err => res.status(500).send(err));
   });
 
   // This rewrites all routes requests to the root /index.html file
