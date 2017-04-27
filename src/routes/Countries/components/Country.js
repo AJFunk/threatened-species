@@ -13,6 +13,16 @@ class Country extends Component {
 
   constructor() {
     super()
+    this.state = {
+      query: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e) {
+    this.setState({
+      query: e.target.value
+    })
   }
 
   componentDidMount() {
@@ -22,6 +32,7 @@ class Country extends Component {
 
   render() {
     const { country, loading, name } = this.props
+    const filteredSpecies = country.species.filter(e => e.scientific_name.toLowerCase().indexOf(this.state.query.toLowerCase()) > -1)
 
     if(country.loading) return <Loading />
     return (
@@ -29,8 +40,15 @@ class Country extends Component {
         <Link to='/countries'>
           <button className='btn btn-default'>Back to Countries</button>
         </Link>
+        <input type='text' value={this.state.query} placeholder='Search by name...' onChange={this.handleChange}/>
         <h1>{country.name}</h1>
-        {country.species.map((e,i) => <Link to={`/species/${e.taxonid}`} key={i}>{e.scientific_name} ({e.category}) - #{e.taxonid}</Link>)}
+        <ul>
+          {filteredSpecies.map((e,i) =>
+            <li key={i}>
+              <Link to={`/species/${e.taxonid}`}>{e.scientific_name} ({e.category}) - #{e.taxonid}</Link>
+            </li>
+          )}
+        </ul>
       </div>
     )
   }
